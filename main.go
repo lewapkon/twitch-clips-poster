@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/lewapkon/twitch-clips-poster/pkg/config"
+	"github.com/lewapkon/twitch-clips-poster/pkg/twitch"
 	"github.com/lewapkon/twitch-clips-poster/pkg/twitchtracker"
 	"log"
 )
@@ -15,6 +16,17 @@ func main() {
 	if err != nil {
 		log.Fatal("Error finding top streamers: ", err)
 	}
-	log.Print(streamers)
-	log.Print(len(streamers))
+	twitchClient, err := twitch.NewTwitchClient(conf.Twitch.ClientId, conf.Twitch.ClientSecret)
+	if err != nil {
+		log.Fatal("Error creating twitch client: ", err)
+	}
+	users, err := twitchClient.FindUsers(streamers)
+	if err != nil {
+		log.Fatal("Error finding users: ", err)
+	}
+
+	// Display streamer name to user id mapping to test
+	for _, user := range users {
+		log.Printf("%s: %s", user.Login, user.ID)
+	}
 }

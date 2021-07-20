@@ -10,6 +10,10 @@ type Config struct {
 		Language    string `mapstructure:"language"`
 		PagesToLoad int    `mapstructure:"pages_to_load"`
 	} `mapstructure:"twitch_tracker"`
+	Twitch struct {
+		ClientId     string `mapstructure:"client_id"`
+		ClientSecret string `mapstructure:"client_secret"`
+	} `mapstructure:"twitch"`
 }
 
 func ReadConfig() (Config, error) {
