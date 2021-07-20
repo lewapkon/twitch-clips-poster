@@ -1,0 +1,3 @@
+twitch_tracker:
+  language: "LANGUAGE"
+  pages_to_load: 4
